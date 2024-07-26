@@ -1,47 +1,62 @@
-import usePreventClickWhenDrag from './hooks/usePreventClickWhenDrag';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import Editor from './core';
 
-const Component = () => {
-  const handleClickA = (params: any, ev: React.MouseEvent) => {
-    console.log('___', 'ev', ev.target, ev.currentTarget);
-    if (ev.target !== ev.currentTarget) {
-      console.log('Clicked A', params);
-    }
-  };
+const FabricCanvas: React.FC = () => {
+	const canvasRef = useRef<HTMLCanvasElement>(null);
+	const editorRef = useRef<Editor | null>(null);
 
-  const handleClickB = (ev: React.MouseEvent) => {
-    ev.stopPropagation(); // Prevent event from bubbling up
-    ev.preventDefault();
-    ev.cancelable = false;
-    console.log('Clicked B');
-  };
+	useEffect(() => {
+		if (canvasRef.current) {
+			editorRef.current = new Editor({ elementId: canvasRef.current.id });
+		}
 
-  const { handleMouseDown, handleMouseMove, handleMouseUp } =
-    usePreventClickWhenDrag({
-      onClick: handleClickA,
-      triggerDistance: 5,
-    });
+		// 清理函数
+		return () => {
+			if (editorRef.current) {
+				editorRef.current.canvas.dispose();
+				editorRef.current = null;
+			}
+		};
+	}, []);
 
-  return (
-    <div
-      className="a"
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={(ev) => handleMouseUp({}, ev)}
-      style={{ border: '1px solid #ccc', padding: 10 }}
-    >
-      <div
-        className="b"
-        onClick={handleClickB}
-        style={{ border: '1px solid #bbb', padding: 10 }}
-      >
-        bbb
-      </div>
-      <div className="c" style={{ border: '1px solid #aaa', padding: 10 }}>
-        cccccc
-      </div>
-    </div>
-  );
+	const handleAddRectangle = () => {
+		editorRef.current?.addRectangle();
+	};
+
+	const handleAddCircle = () => {
+		editorRef.current?.addCircle();
+	};
+
+	const handleEnableDrawing = () => {
+		editorRef.current?.enableDrawingMode();
+	};
+
+	const handleDisableDrawing = () => {
+		editorRef.current?.disableDrawingMode();
+	};
+
+	const handleClearCanvas = () => {
+		editorRef.current?.clearCanvas();
+	};
+
+	return (
+		<div>
+			<canvas
+				id="fabricCanvas"
+				ref={canvasRef}
+				width="800"
+				height="600"
+				style={{ border: '1px solid #000' }}
+			></canvas>
+			<div>
+				<button onClick={handleAddRectangle}>Add Rectangle</button>
+				<button onClick={handleAddCircle}>Add Circle</button>
+				<button onClick={handleEnableDrawing}>Enable Drawing</button>
+				<button onClick={handleDisableDrawing}>Disable Drawing</button>
+				<button onClick={handleClearCanvas}>Clear Canvas</button>
+			</div>
+		</div>
+	);
 };
 
-export default Component;
+export default FabricCanvas;

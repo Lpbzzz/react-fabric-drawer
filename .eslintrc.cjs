@@ -4,6 +4,7 @@ module.exports = {
 		'eslint:recommended',
 		'plugin:react/recommended',
 		'plugin:@typescript-eslint/recommended',
+		'prettier',
 		'plugin:prettier/recommended', // Make sure this is last
 	],
 	plugins: [
@@ -14,7 +15,13 @@ module.exports = {
 		'prettier',
 	],
 	rules: {
-		'prettier/prettier': 'error',
+		'prettier/prettier': [
+			'error',
+			{
+				tabWidth: 2,
+				useTabs: true,
+			},
+		],
 		'unused-imports/no-unused-imports': 'error',
 		'unused-imports/no-unused-vars': [
 			'warn',
@@ -25,7 +32,7 @@ module.exports = {
 				argsIgnorePattern: '^_',
 			},
 		],
-		'indent': ['error', 'tab', { 'SwitchCase': 1 }],
+		indent: ['error', 'tab', { SwitchCase: 1 }],
 		'@typescript-eslint/indent': ['error', 'tab'],
 		'react/react-in-jsx-scope': 'off', // For React 17+ where importing React is not necessary
 		'@typescript-eslint/no-explicit-any': 'off',
@@ -34,5 +41,8 @@ module.exports = {
 		react: {
 			version: 'detect',
 		},
+	},
+	env: {
+		node: true,
 	},
 };
