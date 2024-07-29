@@ -4,6 +4,7 @@ import Editor from '@/core';
 const FabricCanvas: React.FC = () => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const editorRef = useRef<Editor | null>(null);
+	// test for proxy
 
 	useEffect(() => {
 		if (canvasRef.current) {
