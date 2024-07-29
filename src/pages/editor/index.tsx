@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import Editor from '../../core';
+import Editor from '@/core';
 
 const FabricCanvas: React.FC = () => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
