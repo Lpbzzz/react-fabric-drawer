@@ -13,7 +13,7 @@ const FabricCanvas: React.FC = () => {
 		// 清理函数
 		return () => {
 			if (editorRef.current) {
-				editorRef.current.canvas.dispose();
+				editorRef.current.canvas.dispose().then();
 				editorRef.current = null;
 			}
 		};
