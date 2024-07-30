@@ -3,10 +3,16 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 const Home = () => {
 	const navigate = useNavigate();
-	console.log('location:', location);
 	return (
 		<div>
-			<h1>go edit</h1>
+			<h1>{location.pathname}</h1>
+			<Button
+				onClick={() => {
+					navigate('/');
+				}}
+			>
+				go home
+			</Button>
 			<Button
 				onClick={() => {
 					navigate('/editor');
@@ -14,12 +20,13 @@ const Home = () => {
 			>
 				go editor
 			</Button>
+
 			<Button
 				onClick={() => {
-					navigate('/');
+					navigate('/chart');
 				}}
 			>
-				go home
+				go chart
 			</Button>
 			{<Outlet />}
 		</div>

@@ -1,4 +1,4 @@
-import { Canvas, Rect, Circle, PencilBrush } from 'fabric';
+import { Canvas, Circle, PencilBrush, Rect } from 'fabric';
 
 interface EditorProps {
 	elementId: string;
@@ -41,8 +41,7 @@ class Editor {
 	enableDrawingMode() {
 		this.canvas.isDrawingMode = true;
 		this.canvas.freeDrawingCursor = 'pointer';
-		const brush = new PencilBrush(this.canvas);
-		this.canvas.freeDrawingBrush = brush;
+		this.canvas.freeDrawingBrush = new PencilBrush(this.canvas);
 		this.canvas.freeDrawingBrush.color = 'red';
 		this.canvas.freeDrawingBrush.width = 10;
 	}
