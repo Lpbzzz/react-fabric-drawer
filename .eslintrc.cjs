@@ -1,5 +1,11 @@
 module.exports = {
 	parser: '@typescript-eslint/parser',
+	parserOptions:{
+		project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
+		tsconfigRootDir: __dirname,
+		ecmaVersion:'latest',
+		sourceType: 'module',
+	},
 	extends: [
 		'eslint:recommended',
 		'plugin:react/recommended',
